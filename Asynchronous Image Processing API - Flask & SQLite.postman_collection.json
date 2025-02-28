@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "a5155efd-40ec-464d-9142-a94028ed7ee9",
+		"name": "Asynchronous Image Processing API - Flask & SQLite",
+		"description": "This Postman collection provides API endpoints for an asynchronous image processing system using Flask, SQLite, and Celery. The system allows users to upload a CSV file containing product details and image URLs, compresses images asynchronously, stores the processed image URLs, and provides status updates via an API. Additionally, a webhook is triggered upon completion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42723504"
+	},
+	"item": [
+		{
+			"name": "Upload CSV",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/gurur/Desktop/Assignment/sample.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/upload",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"upload"
+					]
+				},
+				"description": "Uploads a CSV file for image processing and returns a unique `request_id`."
+			},
+			"response": []
+		},
+		{
+			"name": "Check Status",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/status/:request_id",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"status",
+						":request_id"
+					],
+					"variable": [
+						{
+							"key": "request_id",
+							"value": "29069060-f338-459c-a18f-744e59b7b334"
+						}
+					]
+				},
+				"description": "Retrieves the current processing status of the uploaded CSV file. Once completed, it provides the link to the processed CSV."
+			},
+			"response": [
+				{
+					"name": "Pending",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/status/:request_id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"status",
+								":request_id"
+							],
+							"variable": [
+								{
+									"key": "request_id",
+									"value": "2560eff7-65e8-4149-a543-a85fde921a49"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.1.3 Python/3.13.2"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 28 Feb 2025 17:11:02 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "82"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"request_id\": \"2560eff7-65e8-4149-a543-a85fde921a49\",\n    \"status\": \"Pending\"\n}"
+				},
+				{
+					"name": "Completed",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:5000/status/:request_id",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"status",
+								":request_id"
+							],
+							"variable": [
+								{
+									"key": "request_id",
+									"value": "2560eff7-65e8-4149-a543-a85fde921a49"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Werkzeug/3.1.3 Python/3.13.2"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 28 Feb 2025 17:11:36 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "82"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"request_id\": \"2560eff7-65e8-4149-a543-a85fde921a49\",\n    \"status\": \"Completed\",\n    \"output_csv\": \"uploads/2560eff7-65e8-4149-a543-a85fde921a49_processed.csv\"\n}"
+				}
+			]
+		}
+	]
+}
